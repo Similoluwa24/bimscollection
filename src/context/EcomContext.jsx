@@ -8,7 +8,8 @@ const EcomContext = createContext();
 export const EcomProvider = ({children})=>{
     const [product, setProduct] = useState([]);
     const {alertInfo, showHide}=useAlert();
-    const [order, setOrder] = useState(null)
+    const [order, setOrder] = useState(null);
+    const [allOrders, setAllOrders] = useState([])
     const [user, setUser] = useState({})
     const [allUsers, setAllUsers] = useState([])
     const [cartItems, setCartItems]=useState([]);
@@ -21,6 +22,7 @@ export const EcomProvider = ({children})=>{
         getUser()
         fetchCart()
         getAllUsers()
+        getAllOrders()
     },[])
 
     useEffect(() => {
@@ -74,6 +76,18 @@ export const EcomProvider = ({children})=>{
         } catch (error) {
             
         }
+    }
+    const getAllOrders = async ()=>{
+        const res = await fetch("http://localhost:8000/api/payment/allorder",{
+            method:'GET',
+            headers:{
+                "Content-Type":"application/json",
+                "auth-token":`${localStorage.getItem("auth-token")}`
+            }
+        })
+        const data = await res.json()
+        setAllOrders(data)
+        console.log(data)
     }
     // const getUser = async () =>{
     //     try {

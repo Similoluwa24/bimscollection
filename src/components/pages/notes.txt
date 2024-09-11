@@ -1,0 +1,195 @@
+import { createContext,useContext,useEffect,useState } from "react";
+import useAlert from "../hooks/useAlert";
+import AuthContext from "./AuthContext";
+
+const EcomContext = createContext();
+
+export const EcomProvider = ({children})=>{
+    const [product, setProduct] = useState([]);
+    const {alertInfo, showHide}=useAlert();
+    const [order, setOrder] = useState(null)
+    const [cartItems, setCartItems]=useState([]);
+    const [state, dispatch] =  useContext(AuthContext);
+    const isAuthenticated = state.accessToken !== null
+    
+    useEffect(()=>{
+        fetchData()
+    },[])
+
+    useEffect(() => {
+        fetchCart()
+    }, [cartItems])
+    
+    const fetchData = async ()=>{
+        try {
+            const response = await fetch("http://localhost:8000/api/product");
+            const data = await response.json();
+            setProduct(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    const featuredProduct = product.filter((product)=>product.featured===true)
+    const topSellingProduct = product.filter((product)=>product.topSelling===true)
+
+    // add to cart
+    const addToCart = async (productId, quantity) => {
+        try {
+            // Add a new item to the cart
+            const res = await fetch("http://localhost:8000/api/addcart", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "auth-token": `${localStorage.getItem("auth-token")}`,
+              },
+              body: JSON.stringify({ productId, quantity }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+              setCartItems(data);
+              showHide("success", "You have successfully added item to cart");
+            } else {
+              showHide("error", "Product failed to added to cart");
+            }
+        } catch (error) {
+          console.log(error);
+          showHide("error", "An error occurred while adding the item to the cart");
+        }
+      };
+    
+    //fetch cart
+    const fetchCart = async () => {
+        const res = await fetch("http://localhost:8000/api/cart",{
+            method: "GET",
+            headers:{
+                "Content-Type":"application/json",
+                "auth-token": `${localStorage.getItem("auth-token")}`
+            }
+        })
+        const data = await res.json();
+
+        if (res.ok) {
+            setCartItems(data.products && data);
+        } else {
+            showHide("error", "could not get cart")
+        }
+    }
+
+
+    //remove cart items
+    const removeCartItems =async (productId)=>{
+        try {
+            if (window.confirm("are you sure you want to delete?..")) {
+                const res = await fetch("http://localhost:8000/api/delete",{
+                    method: "DELETE",
+                    headers:{
+                        "Content-Type":"application/json",
+                        "auth-token":`${localStorage.getItem("auth-token")}`
+                    },
+                    body: JSON.stringify({ productId })
+                })
+                const data = await res.json();
+                if (res.ok) {
+                    showHide("success" , "product successfully deleted from cart")
+                    setCartItems(data || data.products)
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+    //calculate subtotal
+    const calculateSubTotal= ()=>{
+        return cartItems.products?.reduce((acc,curr)=>acc+curr.amount,0)
+    }
+
+    //calculateVat
+    const calculateVat = (vat= 0.075)=>{
+        const subtotal = calculateSubTotal()
+        return subtotal*vat
+    }
+    
+    //calculate total Amount
+    const calculateTotalAmount = ()=>{
+        const vat= calculateVat()
+        const subtotal = calculateSubTotal()
+        return subtotal + vat;
+    }
+   
+    //updateCart
+    const updateCartItems = async (productId, quantity) => {
+        try {
+            const res = await fetch("http://localhost:8000/api/update-cart",{
+                method:"PUT",
+                headers:{
+                    "Content-Type":"application/json",
+                    "auth-token":`${localStorage.getItem("auth-token")}`
+                },
+                body: JSON.stringify({productId, quantity})
+            })
+            const data = await res.json()
+
+            if (res.ok) {
+                 const existingItems = cartItems.products?.findIndex(items=>items.product._id === productId);
+                 const itemsInCart = [...cartItems.products]
+                 const updateCartItems =     itemsInCart[existingItems]
+                 updateCartItems.quantity = parseInt(quantity)
+                 updateCartItems.amount = updateCartItems.product.price * updateCartItems.quantity
+                 setCartItems({...itemsInCart, products:itemsInCart})
+            }else{
+                showHide("error","Could not update cart")
+            }
+        } catch (error) {
+           console.log(error);
+            
+        }
+    }
+
+    const createOrder = async (transaction_id, orderId) => {
+        try {
+            const res = await fetch("http://localhost:8000/api/payment/verify",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    "auth-token":`${localStorage.getItem("auth-token")}`
+                },
+                body: JSON.stringify({transaction_id, orderId})
+            })
+            const data = await res.json()
+            if (res.ok) {
+                setOrder(data.order)
+                setCartItems([])
+            } else {
+                showHide("error", "Insufficient Funds!!")
+            }
+        } catch (error) {
+           console.log({message: error.message});
+            
+        }
+    }
+
+    return (
+        <EcomContext.Provider value={{
+            product,
+            alertInfo,
+            featuredProduct,
+            topSellingProduct,
+            order, 
+            cartItems,
+            isAuthenticated,
+            addToCart,
+            showHide,
+            calculateSubTotal,
+            calculateVat,
+            calculateTotalAmount,
+            removeCartItems,
+            updateCartItems,
+            createOrder
+        }}>
+            {children}
+        </EcomContext.Provider>
+    )
+}
+export default EcomContext;

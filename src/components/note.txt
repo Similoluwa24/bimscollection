@@ -1,0 +1,252 @@
+<div className="flex mx-24 contain">
+        <div className="image">
+          <img src="/login.jpg" alt="" className='w-[70] h-[70%] my-12 ' />
+        </div>
+
+        <div className="bg-[#043040] rounded  flex-col flex justify-center w-[130%] min-h-full ml- my-24 logins">
+          <div className="text-7xl ml-72 text-[#cda247] mt-8 login">
+          <VscAccount />
+          </div>
+          <form action="" className='text-[#cda247] ml-[6rem] text-[lora] p-3 '>
+            <div className="p-3  label">
+              <input type="email" name="" id=""  placeholder='Enter e-mail address' required  className='w-[80%] p-2  outline-none border-0 border-b placeholder:text-sm placeholder:text-[#cda247]   bg-transparent ' />
+            </div>
+
+            <div className="p-3  label">
+              <input type="password" name="" placeholder='Password' id="" required className='w-[80%] p-2 outline-none border-0 border-b placeholder:text-sm placeholder:text-[#cda247]   bg-transparent' />
+            </div>
+          </form>
+          <button className='bg-[#cda247] py-3 px-12 text-xl w-[25rem] rounded border border-2 text-[#043040] border-[#043040] hover:text-[#8ad6fb] hover:bg-[#043040] hover:border-[#cda247] m-auto ' type="submit">Login</button>
+        <div className="flex gap-4 justify-around links">
+         <Link to="/"> <h2 className='mb-16  justify-center font-italic text-[#cda247] hover:text-cyan-600 italic font-[lora]  hover:underline '>Forgot Password?</h2></Link>
+         <Link to="/signup"> <h2 className='mb-16  justify-center font-italic text-[#cda247] hover:text-cyan-600 italic font-[lora]   '>New Here? <span className='hover:underline'>Sign Up</span></h2></Link>
+        </div>
+        <h1></h1>
+       </div>
+      </div>
+
+
+      <div className=" logins">
+        <div className="textbox">
+            <VscAccount/>
+          </div>
+          <form action="">
+            <div className="name">
+              <input type="text" name="" id="" />
+            </div>
+          </form>
+        </div>
+
+
+
+        /* background: url(/public/banner2.png);
+    height: 80vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    position: relative; */
+
+
+
+    // for pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const recordsPerPage = 5
+  const lastIndex = currentPage * recordsPerPage
+  const firstIndex = lastIndex - recordsPerPage
+  const records = product_items_prop.slice(firstIndex, lastIndex)
+  const npage = Math.ceil(product_items_prop/records)
+  const number = [...Array(npage + 1).keys()].slice(1)
+  //pagination done
+
+
+    <nav>
+      <ul>
+        <li onClick={prePage}>
+          <a href="">Prev</a>
+        </li>
+
+        {number.map((item, index) =>(
+          <li className={`page-item ${currentPage === n  ? 'active' : ""}`} key={index} onClick={changeCPage}>
+            <a href="#">{item}</a>
+          </li>
+        ))}
+
+
+        <li onClick={nextPage}>
+          <a href="">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+
+
+
+     // // updatecart
+    // const updateCartItems = (name,newQuantity)=>{
+    //     const existingItems = cartItems.findIndex(items=>items.name === name);
+    //     const itemsInCart = [...cartItems]
+    //     const updateCartItems =     itemsInCart[existingItems]
+    //     updateCartItems.quantity = parseInt(newQuantity)
+    //     updateCartItems.amount = updateCartItems.price * updateCartItems.quantity
+    //     setCartItems(itemsInCart)
+
+    // }
+
+
+
+      // //adding items to cart
+    // const addToCart = (product) => {
+    //     const existingItems = cartItems.findIndex(items =>items.name===product.name);
+    //     if (existingItems !== -1) {
+    //         const itemsInCart = [...cartItems]
+    //         const updateCartItems = itemsInCart[existingItems]
+    //         updateCartItems.quantity += Number(product.quantity)
+    //         updateCartItems.amount = Number(updateCartItems.price * updateCartItems.quantity)
+    //         setCartItems(itemsInCart)
+    //         showHide("error", `${product.name} already exist in your cart...`)
+    //     } else {
+    //         setCartItems([
+    //             ...cartItems,
+    //             { ...product, amount:product.price * product.quantity}
+    //         ])  
+    //         showHide("success", `${product.name} added to cart successfully...`)
+    //         }
+    // }
+
+
+    // //remove cart items
+    // const removeCartItems = (name)=>{
+    //     if (window.confirm("are you sure you want to delete?..")) {
+    //         const deleteItems = cartItems.filter((items)=> items.name !== name);
+    //         setCartItems(deleteItems);
+    //         showHide("success", "product has been deleted sucessfully")
+    //     }
+    // }
+
+
+
+
+
+
+ <marquee behavior="" direction="from left" className="uppercase text-[brown] text-[lona]" >Anniversary sales starts on the 24th of september 2024. all our items will be over 20% off. miss am make e pain you</marquee>
+        <div className=" banner-container">
+            <div className="image">
+             {/* <img src="/banner2.png" alt=""/>  */}
+            
+            <div className="bannerText ">
+              <h1 className='text-7xl text-center text-[blanchedalmond] bg-[brown]'>Bimscollections</h1>
+              <p className='text-3xl bg-[brown] mb-2 text-center capitalize text-[blanchedalmond]'>where affordability meets luxury</p>
+              <button type="button" className='bg-[blanchedalmond] ml-24 py-3 px-12 text-xl w-[25rem] rounded  border-2 text-[brown] border-[brown] hover:text-[blanchedalmond] hover:bg-[brown] hover:border-[blanchedalmond] m-auto '><Link to='/product'>View Shop</Link></button>
+              
+            </div>
+            </div>
+        </div>
+
+
+
+
+
+        import React from 'react'
+import AdminProducts from './AdminProducts'
+import Customers from './AdminProducts'
+import Dashboard from './Dashboard'
+import Transactions from './Transactions'
+import Orders from './Orders'
+import { Link } from 'react-router-dom'
+import { RiDashboard2Fill } from 'react-icons/ri'
+import { ImProfile } from 'react-icons/im'
+
+
+function AdminSidebar() {
+  return (
+    <div>
+        <Link to='dashboard' >
+            <RiDashboard2Fill className='inline'></RiDashboard2Fill>Dashboard
+        </Link>
+
+        <Link>
+              <ImProfile></ImProfile><span>Customers</span>
+        </Link>
+
+
+         <AdminProducts/>
+         <Customers/>
+            <Dashboard/>
+            <Orders/>
+            <Transactions/>
+    </div>
+  )
+
+}
+
+export default AdminSidebar
+
+
+
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { FaHome } from "react-icons/fa";
+import { FaBoxOpen } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import { AiOutlineTransaction } from "react-icons/ai";
+import { FaArrowLeft } from "react-icons/fa";
+
+
+
+
+
+
+
+  if (isAuthenticated) {
+    return <Navigate to="/" />
+  }
+
+  const loginHandler = async (e)=>{
+    e.preventDefault()
+    if (email === "" || password === "") {
+      showHide("error", "Email and Password is required")
+    }
+    if (!email  || !password) {
+      showHide("error", "Email or Password is Invalid")
+    }
+    try {
+      const res = await fetch("http://localhost:8000/api/login",{
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body:JSON.stringify({
+          email,
+          password
+        })
+        // adeojo@gmail.com
+      })
+      const data = await res.json()
+      if (data.message) {
+        showHide("error", data.message)
+      }else{
+        dispatch({type: "setToken", payload : data.token})
+        setItem(data.token);
+        redirect("/")
+        showHide("success", "YOU ARE NOW LOGGED IN")
+      }
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+  const validatePassword = (e) => {
+    if (password === "") {
+        setBtnDisabled(true);
+        setMessage("Enter your password");
+    }  else if (password !== "" && password.trim().length < 8) {
+        setBtnDisabled(true);
+        setMessage("Your Password must be atleast 8 letters");
+    }else {
+        setBtnDisabled(false)
+        setMessage("Valid Password")
+    }
+    setPassword(e.target.value)
+    e.preventDefault();
+}

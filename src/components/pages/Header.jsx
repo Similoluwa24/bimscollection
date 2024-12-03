@@ -11,6 +11,7 @@ function Header() {
   const redirect = useNavigate()
   const { showHide, isAuthenticated, cartItems, user} = useContext(EcomContext)
   const [profile, setProfile] = useState(false)
+  
 
 
 
@@ -23,9 +24,13 @@ function Header() {
   }
 
   
-    // if (isAuthenticated) {
-    //   return <Navigate to="/login" />
-    // }
+   let time = new Date().toLocaleTimeString()  
+    const [currentTime, setCurrentTime] = useState(time)
+    const updateTime = ()=>{
+      let time = new Date().toLocaleTimeString()
+      setCurrentTime(time)
+    }
+    setInterval(updateTime,1000)
 
   return (
     <div className="flex justify-between px-3 py-4 bg-[brown] text-[blanchedalmond] pr-8 header">
@@ -37,9 +42,8 @@ function Header() {
         {/* first navbar  */}
         <nav className='hidden lg:flex  space-x-7'>
               {isAuthenticated ? (<><p>{`Hello 👋🏾 ${user.lastName}`}</p></>):""}
+              <Link to="/product">{currentTime}</Link>
               <Link to="">Home</Link>
-              <Link to="/about">About</Link>
-              <Link to="/product">Products</Link>
               {isAuthenticated ? (<>
                 <Link onClick={logout}>Log Out</Link>              
               </>) : (<>

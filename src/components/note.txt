@@ -211,7 +211,7 @@ import { FaArrowLeft } from "react-icons/fa";
       showHide("error", "Email or Password is Invalid")
     }
     try {
-      const res = await fetch("http://localhost:8000/api/login",{
+      const res = await fetch("https://bimscollection.onrender.com/api/login",{
         method: "POST",
         headers: {
           "content-type": "application/json"
@@ -250,3 +250,18 @@ import { FaArrowLeft } from "react-icons/fa";
     setPassword(e.target.value)
     e.preventDefault();
 }
+
+
+
+
+
+
+ // const getUser = async () =>{
+    //     try {
+    //         const res = await fetch("https://bimscollection.onrender.com/api/user")
+    //         const data = await res.json();
+    //         setUser(data)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }

@@ -11,7 +11,8 @@ export const EcomProvider = ({children})=>{
     const [order, setOrder] = useState(null);
     const [allOrders, setAllOrders] = useState([])
     const [user, setUser] = useState({})
-    const [allUsers, setAllUsers] = useState([])
+    const [allUsers, setAllUsers] = useState([]);
+    const [categories, setCategories] = useState([])
     const [cartItems, setCartItems]=useState([]);
     const [state, dispatch] =  useContext(AuthContext);
     const isAuthenticated = state.accessToken !== null
@@ -23,6 +24,7 @@ export const EcomProvider = ({children})=>{
         fetchCart()
         getAllUsers()
         getAllOrders()
+        getAllCategories()
     },[])
 
     useEffect(() => {
@@ -30,7 +32,7 @@ export const EcomProvider = ({children})=>{
     
     const fetchData = async ()=>{
         try {
-            const response = await fetch("http://localhost:8000/api/product");
+            const response = await fetch("https://bimscollection.onrender.com/api/product");
             const data = await response.json();
             setProduct(data);
         } catch (error) {
@@ -42,7 +44,7 @@ export const EcomProvider = ({children})=>{
 
     const getUser = async () =>{
         try {
-            const res = await fetch(`http://localhost:8000/api/user`,{
+            const res = await fetch(`https://bimscollection.onrender.com/api/user`,{
                 method: "GET",
                 headers:{
                     "Content-Type":"application/json",
@@ -61,7 +63,7 @@ export const EcomProvider = ({children})=>{
 
     const getAllUsers = async (req,res) => {
         try {
-            const res = await fetch("http://localhost:8000/api/all-user",{
+            const res = await fetch("https://bimscollection.onrender.com/api/all-user",{
                 method:"GET",
                 headers:{
                     "Content-Type":"application/json",
@@ -78,7 +80,7 @@ export const EcomProvider = ({children})=>{
         }
     }
     const getAllOrders = async ()=>{
-        const res = await fetch("http://localhost:8000/api/payment/allorder",{
+        const res = await fetch("https://bimscollection.onrender.com/api/payment/allorder",{
             method:'GET',
             headers:{
                 "Content-Type":"application/json",
@@ -86,19 +88,26 @@ export const EcomProvider = ({children})=>{
             }
         })
         const data = await res.json()
-        setAllOrders(data)
+        setAllOrders(data.order)
         console.log(data)
     }
-    // const getUser = async () =>{
-    //     try {
-    //         const res = await fetch("http://localhost:8000/api/user")
-    //         const data = await res.json();
-    //         setUser(data)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
+   
+const getAllCategories = async ()=>{
+    try {
+        const res = await fetch("https://bimscollection.onrender.com/api/category",{
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                // "auth-token":`${localStorage.getItem("auth-token")}`
+            }
+        })
+        const data = await res.json()
+        setCategories(data)
+        console.log(data)
+    } catch (error) {
+        
+    }
+}
 
     
     const featuredProduct = product.filter((product)=>product.featured===true)
@@ -109,7 +118,7 @@ export const EcomProvider = ({children})=>{
         if (isAuthenticated) {
             try {
                 // Add a new item to the cart
-                const res = await fetch("http://localhost:8000/api/addcart", {
+                const res = await fetch("https://bimscollection.onrender.com/api/addcart", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -161,7 +170,7 @@ export const EcomProvider = ({children})=>{
     //fetch cart
     const fetchCart = async () => {
         if (isAuthenticated) { 
-            const res = await fetch("http://localhost:8000/api/cart",{
+            const res = await fetch("https://bimscollection.onrender.com/api/cart",{
                 method: "GET",
                 headers:{
                     "Content-Type":"application/json",
@@ -195,7 +204,7 @@ export const EcomProvider = ({children})=>{
         if (window.confirm("are you sure you want to delete?..")) {
             if (isAuthenticated) {
                 try {
-                    const res = await fetch("http://localhost:8000/api/delete",{
+                    const res = await fetch("https://bimscollection.onrender.com/api/delete",{
                         method: "DELETE",
                         headers:{
                             "Content-Type":"application/json",
@@ -255,7 +264,7 @@ export const EcomProvider = ({children})=>{
     const updateCartItems = async (productId, quantity) => {
        if (isAuthenticated) {
         try {
-            const res = await fetch("http://localhost:8000/api/update-cart",{
+            const res = await fetch("https://bimscollection.onrender.com/api/update-cart",{
                 method:"PUT",
                 headers:{
                     "Content-Type":"application/json",
@@ -304,7 +313,7 @@ export const EcomProvider = ({children})=>{
 
     const createOrder = async (transaction_id, orderId) => {
         try {
-            const res = await fetch("http://localhost:8000/api/payment/verify",{
+            const res = await fetch("https://bimscollection.onrender.com/api/payment/verify",{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
@@ -336,7 +345,10 @@ export const EcomProvider = ({children})=>{
             isAuthenticated,
             user,
             allUsers,
+            allOrders,
+            categories,
             addToCart,
+            getUser,
             showHide,
             calculateSubTotal,
             calculateVat,

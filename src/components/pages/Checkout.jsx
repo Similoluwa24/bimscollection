@@ -21,7 +21,7 @@ function Checkout() {
         const currency = e.target.currency.value
 
         try {
-            const res = await fetch("http://localhost:8000/api/payment/initiate",{
+            const res = await fetch("https://bimscollection.onrender.com/api/payment/initiate",{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",

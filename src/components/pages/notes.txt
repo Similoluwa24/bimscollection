@@ -22,7 +22,7 @@ export const EcomProvider = ({children})=>{
     
     const fetchData = async ()=>{
         try {
-            const response = await fetch("http://localhost:8000/api/product");
+            const response = await fetch("https://bimscollection.onrender.com/api/product");
             const data = await response.json();
             setProduct(data);
         } catch (error) {
@@ -37,7 +37,7 @@ export const EcomProvider = ({children})=>{
     const addToCart = async (productId, quantity) => {
         try {
             // Add a new item to the cart
-            const res = await fetch("http://localhost:8000/api/addcart", {
+            const res = await fetch("https://bimscollection.onrender.com/api/addcart", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export const EcomProvider = ({children})=>{
     
     //fetch cart
     const fetchCart = async () => {
-        const res = await fetch("http://localhost:8000/api/cart",{
+        const res = await fetch("https://bimscollection.onrender.com/api/cart",{
             method: "GET",
             headers:{
                 "Content-Type":"application/json",
@@ -81,7 +81,7 @@ export const EcomProvider = ({children})=>{
     const removeCartItems =async (productId)=>{
         try {
             if (window.confirm("are you sure you want to delete?..")) {
-                const res = await fetch("http://localhost:8000/api/delete",{
+                const res = await fetch("https://bimscollection.onrender.com/api/delete",{
                     method: "DELETE",
                     headers:{
                         "Content-Type":"application/json",
@@ -121,7 +121,7 @@ export const EcomProvider = ({children})=>{
     //updateCart
     const updateCartItems = async (productId, quantity) => {
         try {
-            const res = await fetch("http://localhost:8000/api/update-cart",{
+            const res = await fetch("https://bimscollection.onrender.com/api/update-cart",{
                 method:"PUT",
                 headers:{
                     "Content-Type":"application/json",
@@ -149,7 +149,7 @@ export const EcomProvider = ({children})=>{
 
     const createOrder = async (transaction_id, orderId) => {
         try {
-            const res = await fetch("http://localhost:8000/api/payment/verify",{
+            const res = await fetch("https://bimscollection.onrender.com/api/payment/verify",{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",

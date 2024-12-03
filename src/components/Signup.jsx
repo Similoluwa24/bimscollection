@@ -27,7 +27,7 @@ function Signup() {
     console.log('submitted');
 
     try {
-      const res = await fetch("http://localhost:8000/api/register",{
+      const res = await fetch("https://bimscollection.onrender.com/api/register",{
         method: "POST",
         headers: {
           "Content-Type" : "application/json"

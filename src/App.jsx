@@ -26,6 +26,9 @@ import Orders from './components/admin/Orders'
 import Transactions from './components/admin/Transactions'
 import Customers from './components/admin/Customers'
 import AdminSiderbar from './components/admin/AdminSidebar'
+import CreateProducts from './components/admin/CreateProducts'
+import AdminCatergories from './components/admin/AdminCatergories'
+import CreateCategories from './components/admin/CreateCategories'
 
 
 
@@ -51,7 +54,7 @@ function App() {
     <EcomProvider>
       <Router>
         {/* <Header/> */}
-        <Alert />
+        <Alert/>
          <Routes>
           <Route path='/' element={
             <>
@@ -124,8 +127,12 @@ function App() {
             } /> 
            <Route path='/admin/orders' element={
             <>
-            <AdminSiderbar/>
             <Orders/>
+            </>
+            } />
+           <Route path='/admin/category' element={
+            <>
+            <AdminCatergories/>
             </>
             } />
            <Route path='/admin/transaction' element={
@@ -134,6 +141,9 @@ function App() {
             <Transactions/>
             </>
             } /> 
+            <Route path='/admin/createproducts' element={<CreateProducts/>}/>
+            <Route path='/admin/createcategory' element={<CreateCategories/>}/>
+            
         </Routes> 
         
         <Footer/>

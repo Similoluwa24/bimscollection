@@ -16,38 +16,38 @@ function Dashboard() {
             <AdminSiderbar/>
             <div className="dashboard">
               <div className="m-4 grid grid-cols-4 gap-8 data">
-                <article className="w-60 h-24  bg-[brown] shadow p-4 space-y-2 rounded-md ">
+                <article className="w-60 h-24  bg-[#D97706] shadow p-4 space-y-2 rounded-md ">
                   <div className="flex justify-around pb-12 icon">
-                    <IoPeopleSharp className='inline size-12 text-[blanchedalmond] pt-2'></IoPeopleSharp>
-                    <p className="text-xl w-full capitalize text-center p-3  text-[blanchedalmond]">
+                    <IoPeopleSharp className='inline size-12 text-[#F4F4F9] pt-2'></IoPeopleSharp>
+                    <p className="text-xl w-full capitalize text-center p-3  text-[#F4F4F9]">
                     {allUsers.length} users
                   </p>
                   </div>
                 </article>
 
 
-                <article className="w-60 h-24 bg-[brown] shadow p-4 space-y-2 rounded-md ">
+                <article className="w-60 h-24 bg-[#D97706] shadow p-4 space-y-2 rounded-md ">
                   <div className="flex justify-around pb-12 icon">
-                      <FaBoxOpen className='inline size-12 text-[blanchedalmond] pt-2'></FaBoxOpen>
-                      <p className="text-xl w-full capitalize text-center pt-3 text-[blanchedalmond]">
+                      <FaBoxOpen className='inline size-12 text-[#F4F4F9] pt-2'></FaBoxOpen>
+                      <p className="text-xl w-full capitalize text-center pt-3 text-[#F4F4F9]">
                       {product.length} products
                       </p>
                   </div>
 
 
                 </article>
-                <article className="w-60 h-24 bg-[brown] shadow p-4 space-y-2 rounded-md ">
+                <article className="w-60 h-24 bg-[#D97706] shadow p-4 space-y-2 rounded-md ">
                 <div className="flex justify-around pb-12 icon">
-                  <FaShoppingCart className='inline size-12 text-[blanchedalmond] pt-2'></FaShoppingCart>
-                  <p className="text-xl w-full text-center pt-3 capitalize text-[blanchedalmond]">
+                  <FaShoppingCart className='inline size-12 text-[#F4F4F9] pt-2'></FaShoppingCart>
+                  <p className="text-xl w-full text-center pt-3 capitalize text-[#F4F4F9]">
                   {allOrders.length} orders
                   </p>
                 </div>
                 </article>
-                <article className="w-60 h-24 bg-[brown] shadow p-4 space-y-2 rounded-md ">
+                <article className="w-60 h-24 bg-[#D97706] shadow p-4 space-y-2 rounded-md ">
                     <div className="flex justify-around pb-12 icon">
-                      <BiSolidCategory className='inline size-12 text-[blanchedalmond] pt-2'></BiSolidCategory>
-                      <p className="text-xl w-full text-center capitalize pt-3  text-[blanchedalmond]">
+                      <BiSolidCategory className='inline size-12 text-[#F4F4F9] pt-2'></BiSolidCategory>
+                      <p className="text-xl w-full text-center capitalize pt-3  text-[#F4F4F9]">
                       {categories.length} categories
                       </p>
                     </div>

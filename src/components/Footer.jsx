@@ -1,58 +1,76 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <div>
-      <footer className='bg-[brown] p-4 px-3 gap-4'>
-        <div className='grid grid-cols-3 bg-[brown] p-4 px-3 gap-4'>
-        
-            <div className=" intouch">
-              <h1 className='text-5xl font-semibold font-[tangerine] text-center mb-3 text-[blanchedalmond]'>Stay In Touch</h1>
-              <p className='text-md text-justify font-[lora] text-[blanchedalmond] '>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus impedit nisi assumenda aliquid fugit a quia porro.
-                Molestias nostrum distinctio, voluptatibus id quos doloremque, non voluptates qui mollitia ad facilis!</p>
-                <div className="space-x-5 p-3 text-[blanchedalmond] icons">
-                <i className="fa-brands fa-facebook"></i>
-                <i className="fa-brands fa-instagram"></i>
-                <i className="fa-brands fa-x-twitter"></i>
-                <i className="fa-brands fa-pinterest"></i>
-                </div>
-            </div>
-            <div className="services">
-              <h1 className='text-5xl font-semibold font-[tangerine] text-center text-[blanchedalmond]'>Quick Links</h1>
-              <nav className='text-md flex flex-col font-[lora] px-40 space-y-4 text-[blanchedalmond] '>
-              <Link to="" >Home</Link>
-                <Link to="/about">About</Link>
-                <Link to="/product">Products</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Signup</Link>
-                <Link to="/cart" className='relative'></Link>
-              </nav>
-            </div>
-            <div className="cotactUs">
-              <h1 className='text-5xl font-semibold font-[tangerine] text-center text-[blanchedalmond]'>Contact Us</h1>
-                <div className="text-md font-[lora] space-y-4 text-[blanchedalmond] contact">
-                  <div className="flex gap-3 servi">
-                  <i className="fa-solid fa-map "></i>
-                  <p>Adetokunbo Ademola Street, Victoria Island, Lagos Nigeria</p>
-                  </div>
+    <footer className="bg-[#D97706] text-white py-10">
+      {/* Main Grid */}
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
+        {/* Stay In Touch Section */}
+        <div className="text-center md:text-left">
+          <h2 className="text-4xl font-bold font-[Tangerine] mb-4">Stay In Touch</h2>
+          <p className="text-sm font-[Lora] leading-relaxed">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus impedit nisi assumenda aliquid fugit a
+            quia porro. Molestias nostrum distinctio voluptatibus id quos doloremque, non voluptates qui mollitia ad
+            facilis!
+          </p>
+          <div className="flex justify-center md:justify-start gap-4 mt-4 text-lg">
+            <a href="#" aria-label="Facebook">
+              <i className="fa-brands fa-facebook hover:text-blue-400"></i>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <i className="fa-brands fa-instagram hover:text-pink-400"></i>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <i className="fa-brands fa-x-twitter hover:text-blue-400"></i>
+            </a>
+            <a href="#" aria-label="Pinterest">
+              <i className="fa-brands fa-pinterest hover:text-red-400"></i>
+            </a>
+          </div>
+        </div>
 
-                  <div className="flex gap-3 servi">
-                  <i className="fa-solid fa-phone"></i>
-                  <p>Phone Number: +234 201 2772700</p>
-                  </div>
+        {/* Quick Links Section */}
+        <div className="text-center">
+          <h2 className="text-4xl font-bold font-[Tangerine] mb-4">Quick Links</h2>
+          <nav className="flex flex-col items-center space-y-2 font-[Lora]">
+            <Link to="/" className="hover:underline hover:text-blue-400">Home</Link>
+            <Link to="/about" className="hover:underline hover:text-blue-400">About</Link>
+            <Link to="/product" className="hover:underline hover:text-blue-400">Products</Link>
+            <Link to="/login" className="hover:underline hover:text-blue-400">Login</Link>
+            <Link to="/signup" className="hover:underline hover:text-blue-400">Signup</Link>
+            <Link to="/cart" className="hover:underline hover:text-blue-400">Cart</Link>
+          </nav>
+        </div>
 
-                  <div className="flex gap-3 servi">
-                  <i className="fa-regular fa-envelope"></i>
-                  <p>BimbsCollection.1@gmail.com</p>
-                  </div>
-                </div>
-            </div>
-            </div>
-            <p className="text-lg text-center font-[lora] space-y-4 text-[blanchedalmond] ">Copyright © 2024 Bimbscollections</p>
-      </footer>
-    </div>
-  )
+        {/* Contact Us Section */}
+        <div className="text-center md:text-left">
+          <h2 className="text-4xl font-bold font-[Tangerine] mb-4">Contact Us</h2>
+          <ul className="space-y-3 text-sm font-[Lora]">
+            <li className="flex items-center gap-3">
+              <i className="fa-solid fa-map text-lg"></i>
+              <span>Adetokunbo Ademola Street, Victoria Island, Lagos, Nigeria</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <i className="fa-solid fa-phone text-lg"></i>
+              <span>Phone: +234 201 2772700</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <i className="fa-regular fa-envelope text-lg"></i>
+              <span>Email: BimbsCollection.1@gmail.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Footer Bottom */}
+      <div className="mt-8 text-center border-t border-[#F4F4F9]/50 pt-4">
+        <p className="text-sm font-[Lora]">
+          Copyright © 2024 <span className="font-bold">BimbsCollections</span>. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
 }
 
-export default Footer
+export default Footer;

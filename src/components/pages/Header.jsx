@@ -33,62 +33,132 @@ function Header() {
     setInterval(updateTime,1000)
 
   return (
-    <div className="flex justify-between px-3 py-4 bg-[brown] text-[blanchedalmond] pr-8 header">
-       
-        <div className="text-2xl uppercase font-black tracking-tighter  logo">
-                    <Link to=''>Bimscollections</Link>
+    <div className="flex justify-between items-center px-6 py-4 bg-[#D97706] text-[#F4F4F9] shadow-md header">
+  {/* Logo Section */}
+  <div className="text-2xl uppercase font-black tracking-tighter logo">
+    <Link to="/" className="hover:text-[white] transition-colors">
+      Bimscollections
+    </Link>
+  </div>
+
+  {/* Desktop Navigation */}
+  <nav className="hidden lg:flex items-center space-x-8">
+    {isAuthenticated && (
+      <p className="text-lg font-medium">{`Hello 👋🏾 ${user.lastName}`}</p>
+    )}
+    <Link to="/" className="hover:underline">
+      Home
+    </Link>
+    <Link to="/product" className="hover:underline">
+      Products
+    </Link>
+    {isAuthenticated ? (
+      <Link
+        onClick={logout}
+        className="hover:text-[white] transition-colors cursor-pointer"
+      >
+        Log Out
+      </Link>
+    ) : (
+      <>
+        <Link to="/login" className="hover:underline">
+          Login
+        </Link>
+        <Link to="/signup" className="hover:underline">
+          Signup
+        </Link>
+      </>
+    )}
+    <Link to="/cart" className="relative hover:text-[white] transition-colors">
+      <i className="fa-solid fa-cart-shopping text-xl"></i>
+      <div className="absolute -top-2 -right-2 text-[#D97706] bg-[#F4F4F9] text-center rounded-full h-5 w-5 text-[15px] flex items-center justify-center font-bold">
+        {cartItems.products?.length || 0}
+      </div>
+    </Link>
+  </nav>
+
+  {/* Mobile Menu Button */}
+  <button
+    type="button"
+    className="lg:hidden text-[#F4F4F9] text-2xl focus:outline-none"
+    onClick={() => setOpen(!open)}
+  >
+    <i className="fa-solid fa-bars"></i>
+  </button>
+
+  {/* Mobile Navigation */}
+  <div
+    className={`fixed top-0 left-0 w-[300px] h-full bg-[#D97706] shadow-lg transition-transform z-20 duration-300 ${
+      open ? "translate-x-0" : "-translate-x-full"
+    }`}
+  >
+    {/* Close Button */}
+    <button
+      type="button"
+      className="absolute top-5 right-5 text-3xl text-[#F4F4F9] focus:outline-none"
+      onClick={() => setOpen(false)}
+    >
+      <i className="fa-solid fa-x"></i>
+    </button>
+
+    {/* Mobile Menu Items */}
+    <nav className="flex flex-col items-center gap-6 text-[#F4F4F9] text-xl pt-20 px-6">
+      <Link to="/" className="hover:underline" onClick={() => setOpen(false)}>
+        Home
+      </Link>
+      <Link
+        to="/about"
+        className="hover:underline"
+        onClick={() => setOpen(false)}
+      >
+        About
+      </Link>
+      <Link
+        to="/product"
+        className="hover:underline"
+        onClick={() => setOpen(false)}
+      >
+        Products
+      </Link>
+      {isAuthenticated ? (
+        <Link
+          onClick={logout}
+          className="hover:text-[white] transition-colors cursor-pointer"
+        >
+          Log Out
+        </Link>
+      ) : (
+        <>
+          <Link
+            to="/login"
+            className="hover:underline"
+            onClick={() => setOpen(false)}
+          >
+            Login
+          </Link>
+          <Link
+            to="/signup"
+            className="hover:underline"
+            onClick={() => setOpen(false)}
+          >
+            Signup
+          </Link>
+        </>
+      )}
+      <Link
+        to="/cart"
+        className="relative hover:text-[white] transition-colors"
+        onClick={() => setOpen(false)}
+      >
+        <i className="fa-solid fa-cart-shopping text-xl"></i>
+        <div className="absolute -top-2 -right-2 text-[#D97706] bg-[#F4F4F9] text-center rounded-full h-5 w-5 text-[15px] flex items-center justify-center font-bold">
+          {cartItems.products?.length || 0}
         </div>
-                    {/* <p>{`Hello ${user.firstName}`}</p> */}
-        {/* first navbar  */}
-        <nav className='hidden lg:flex  space-x-7'>
-              {isAuthenticated ? (<><p>{`Hello 👋🏾 ${user.lastName}`}</p></>):""}
-              <Link to="/product">{currentTime}</Link>
-              <Link to="">Home</Link>
-              {isAuthenticated ? (<>
-                <Link onClick={logout}>Log Out</Link>              
-              </>) : (<>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-              </>)}
-              <Link to="/cart" className='relative'>
-                <i className="fa-solid fa-cart-shopping"></i>
-                <div className='absolute bottom-4 left-4 text-[brown] bg-[blanchedalmond] text-center rounded-full h-5 w-5 text-[15px]'>
-                  {cartItems.products?.length}
-                </div>
-                </Link>
-        </nav>
-        {/* first navbar done */}
+      </Link>
+    </nav>
+  </div>
+</div>
 
-      {/* menu button */}
-        <button type="button" className='flex justify-end lg:hidden items-center w-[35px] h-[35px] '>
-          <i className="fa-solid fa-bars" onClick={()=> setOpen(!open)}></i></button>
-          {/* button done */}
-
-          {/* second navbar(mobile) */}
-          <div className={`fixed top-0 left-0 w-[300px] h-screen bg-[brown] transition-transform z-[20]  duration-200 ${open ? "translate-x-0":"-translate-x-full"} `}>
-            {/* xmark for closing navbar */}
-            <button type="button" className='absolute top-5 right-5 text-3xl text-[banchedalmond]' onClick={()=> setOpen(!open)}>
-            <i className="fa-solid fa-x"></i>
-            </button>
-            <nav onClick={()=>setOpen(open)} className='flex flex-col gap-5 text-center text-[blanchedalmond] pt-20 px-10 text-[25px] '>
-                <Link to="">Home</Link>
-                <Link to="/about">About</Link>
-                <Link to="/product">Products</Link>
-                {isAuthenticated ? (<>
-                <Link onClick={logout}>Log Out</Link>
-                </>) :(<>
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Signup</Link>
-                </>)}
-                <Link to="/cart" className='relative'>
-                  <i className="fa-solid fa-cart-shopping"></i>
-                  <div className='absolute bottom-4 left-20 text-[brown] bg-[blanchedalmond] text-center rounded-full h-5 w-5 text-[15px]'>
-                  {cartItems.products?.length}
-                  </div>
-                  </Link>
-            </nav>
-          </div>
-    </div>
   )
 }
 

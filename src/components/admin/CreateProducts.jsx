@@ -98,7 +98,7 @@ function CreateProducts() {
                         </div>
 
                     </div>
-                    <button type="submit" className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-[brown] rounded-lg focus:ring-4  dark:focus:ring-primary-900 hover:bg-primary-800">
+                    <button type="submit" className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-[#D97706] rounded-lg focus:ring-4  dark:focus:ring-primary-900 hover:bg-primary-800">
                         Add product
                     </button>
                 </form>

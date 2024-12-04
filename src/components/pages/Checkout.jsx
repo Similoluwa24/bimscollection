@@ -1,139 +1,163 @@
-import React, { useContext } from 'react'
-import EcomContext from '../../context/EcomContext'
-import { Link, Navigate } from 'react-router-dom'
-
+import React, { useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
+import EcomContext from "../../context/EcomContext";
 
 function Checkout() {
-    const {cartItems, calculateTotalAmount, isAuthenticated} = useContext(EcomContext)
-    if (!isAuthenticated) {
-        <Navigate to="/login"/>
+  const { cartItems, calculateTotalAmount, isAuthenticated } = useContext(EcomContext);
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  // Handle payment submission
+  const handlePayment = async (e) => {
+    e.preventDefault();
+    const amount = calculateTotalAmount();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch("https://bimscollection.onrender.com/api/payment/initiate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": `${localStorage.getItem("auth-token")}`,
+        },
+        body: JSON.stringify({ ...data, amount }),
+      });
+
+      const responseData = await res.json();
+      if (res.ok) {
+        window.location.href = responseData.link; // Redirect to payment page
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert("An error occurred while processing the payment.");
     }
+  };
 
-    const handlePayment = async (e) => {
-        e.preventDefault();
-
-        const amount = calculateTotalAmount()
-        const firstName = e.target.firstName.value
-        const lastName = e.target.lastName.value
-        const email = e.target.email.value
-        const phone = e.target.phone.value
-        const address = e.target.address.value
-        const currency = e.target.currency.value
-
-        try {
-            const res = await fetch("https://bimscollection.onrender.com/api/payment/initiate",{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json",
-                    "auth-token":`${localStorage.getItem("auth-token")}`
-                },
-                body: JSON.stringify({
-                    firstName,
-                    lastName,
-                    email,
-                    phone,
-                    address,
-                    currency,
-                    amount
-                })
-            })
-            const data = await res.json()
-            if(res.ok){
-                window.location.href = data.link
-            }else{
-                res.json("something went wrong")
-            }
-        } catch (error) {
-            
-        }
-    }
   return (
-         <div>
-        <div className="container max-w-6xl p-3 mx-auto my-24 check">
-            <div className="grid md:grid-cols-2 shadow-xl grid-cols-3">
-                <div className="p-3 table">
-                    <h1 className="text-start text-xl font-bold border-b pb-3">Order Summary</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Product Image</th>
-                                <th>Quantity</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {cartItems?.products?.map((items,index)=>(
-                                <tr key={index}>
-                                    <td>{items.product?.name}</td>
-                                    <td className='flex align-center justify-center'>
-                                        <img src={items.product?.images[0].img} width="70px" alt="" />
-                                    </td>
-                                    <td>{items.quantity}</td>
-                                    <td><s>N</s>{items.amount}</td>
-                                </tr>
-                            ))}
-                            
-                        </tbody>
-                    </table>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td className=''>Total: <s>N</s>{calculateTotalAmount()}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <div className="container max-w-6xl mx-auto my-12">
+      {/* Page Header */}
+      <h1 className="text-3xl font-bold text-center text-[#D97706] mb-8">Checkout</h1>
 
-                <div>
-                    <div className=" h-[100vh] p-3 m-3 bg-[blanchedalmond] cform">
-                        <h1 className="text-center p-5 uppercase text-xl-font-bold border-b pb-3">Deliver Details</h1>
-                        <form action="" className='p-5' onSubmit={(e)=>handlePayment(e)}>
-                            <div className='p-3'>
-                                <label htmlFor="">First Name</label>
-                                <input type="text" name='firstName' className='w-[80%] block  bg-transparent border-0 border-b border-blue-200 outline-none' />
-                            </div>
-                            <div className='p-3'>
-                                <label htmlFor="">Last Name</label>
-                                <input type="text" name='lastName' className='w-[80%] block  bg-transparent border-0 border-b border-blue-200 outline-none' />
-                            </div>
-                            <div className='p-3'>
-                                <label htmlFor="">E-mail</label>
-                                <input type="email" name='email' className='w-[80%] block bg-transparent border-0 border-b border-blue-200 outline-none' />
-                            </div>
-                            <div className='p-3'>
-                                <label htmlFor="">Delivery Details</label>
-                                <input type="text" name='address' className='w-[80%]  bg-transparent border-0 border-b border-blue-200 outline-none' />
-                            </div>
-                            <div className='p-3'>
-                                <label htmlFor="">Phone Number</label>
-                                <input name='phone' className='w-[80%]   bg-transparent border-0 border-b border-blue-200 outline-none' />
-                            </div>
-                            <div className='flex space-x-3 border-2 p-3'>
-                            <select name="currency" className='outline-0' id="">
-                                <option value="NGN">NGN</option>
-                                <option value="USD">USD</option>
-                                <option value="GBP">GBP</option>
-                            </select>
-                            <h2 name="amount" className='text-xl font-semibold'>{calculateTotalAmount()}</h2>
-                            </div>
-                            <div className='p-3'>
-                                <button className="product-btn  w-full text-[blanchedalmond] rounded bg-[brown] p-4 capitalize hover:bg-[#a42cd6]" type='submit'>Pay</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Order Summary Section */}
+        <div className="bg-white shadow-md rounded-lg p-6">
+          <h2 className="text-xl font-semibold border-b pb-3 mb-4">Order Summary</h2>
+          <table className="w-full border-collapse">
+            <thead className="bg-[#D97706] text-[#F4F4F9] text-left">
+              <tr>
+                <th className="py-2 px-4">Name</th>
+                <th className="py-2 px-4">Image</th>
+                <th className="py-2 px-4">Qty</th>
+                <th className="py-2 px-4">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems?.products?.map((item) => (
+                <tr key={item.product?._id} className="border-b last:border-none">
+                  <td className="py-2 px-4">{item.product?.name}</td>
+                  <td className="py-2 px-4">
+                    <img
+                      src={item.product?.images[0]?.img}
+                      alt={item.product?.name}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                  </td>
+                  <td className="py-2 px-4 text-center">{item.quantity}</td>
+                  <td className="py-2 px-4">
+                    <s>N</s>{item.amount}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="mt-4 text-right">
+            <h3 className="text-lg font-semibold">
+              Total: <s>N</s>{calculateTotalAmount()}
+            </h3>
+          </div>
         </div>
+
+        {/* Delivery and Payment Form */}
+        <div className="bg-[#F4F4F9] shadow-md rounded-lg p-6">
+          <h2 className="text-xl font-semibold border-b pb-3 mb-4 text-center">Delivery Details</h2>
+          <form onSubmit={handlePayment} className="space-y-4">
+            <div>
+              <label htmlFor="firstName" className="block text-sm font-medium">First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                required
+                className="w-full px-4 py-2 rounded border focus:ring focus:ring-[#D97706]"
+              />
+            </div>
+            <div>
+              <label htmlFor="lastName" className="block text-sm font-medium">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                required
+                className="w-full px-4 py-2 rounded border focus:ring focus:ring-[#D97706]"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium">E-mail</label>
+              <input
+                type="email"
+                name="email"
+                required
+                className="w-full px-4 py-2 rounded border focus:ring focus:ring-[#D97706]"
+              />
+            </div>
+            <div>
+              <label htmlFor="address" className="block text-sm font-medium">Delivery Address</label>
+              <input
+                type="text"
+                name="address"
+                required
+                className="w-full px-4 py-2 rounded border focus:ring focus:ring-[#D97706]"
+              />
+            </div>
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium">Phone Number</label>
+              <input
+                type="text"
+                name="phone"
+                required
+                className="w-full px-4 py-2 rounded border focus:ring focus:ring-[#D97706]"
+              />
+            </div>
+            <div>
+              <label htmlFor="currency" className="block text-sm font-medium">Currency</label>
+              <select
+                name="currency"
+                className="w-full px-4 py-2 rounded border focus:ring focus:ring-[#D97706]"
+                required
+              >
+                <option value="NGN">NGN</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>
+            <div className="text-lg font-semibold">
+              <p>Total Amount: <s>N</s>{calculateTotalAmount()}</p>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-[#D97706] text-[#F4F4F9] py-3 rounded hover:bg-[#a42cd6] transition"
+            >
+              Pay Now
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Checkout
+export default Checkout;

@@ -14,12 +14,12 @@ function ProductItems({ product_items_prop }) {
   <img src={product_items_prop.images[0].img} className='w-[365px] rounded-sm h-[350px]' alt="" />
   </div>
   <div className="card-info">
-    <p className="capitalize text-[brown] text-title">{product_items_prop.name}</p>
-    <p className="text-body text-[brown]">{product_items_prop.description}</p>
+    <p className="capitalize text-[#D97706] text-title">{product_items_prop.name}</p>
+    <p className="text-body text-[#D97706]">{product_items_prop.description}</p>
   </div>
   <div className="card-footer">
-  <span className="text-[brown] text-title"><s>N</s>{product_items_prop.price}</span>
-  <button className='botton'><Link to={`/details/${product_items_prop._id}`} className='text-xs text-[blanchedalmond]'>View Details</Link> </button>
+  <span className="text-[#D97706] text-title"><s>N</s>{product_items_prop.price}</span>
+  <button className='botton'><Link to={`/details/${product_items_prop._id}`} className='text-xs text-[#F4F4F9]'>View Details</Link> </button>
 
   <div className=" card-button">
   {/* <Link><button onClick={() => addToCart({ productId: product_items_prop._id, quantity: 1 })}> */}

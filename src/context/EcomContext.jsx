@@ -114,58 +114,128 @@ const getAllCategories = async ()=>{
     const topSellingProduct = product.filter((product)=>product.topSelling===true)
 
     // add to cart
-    const addToCart = async (productId, quantity, product) => {
-        if (isAuthenticated) {
-            try {
-                // Add a new item to the cart
-                const res = await fetch("https://bimscollection.onrender.com/api/addcart", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                    "auth-token": `${localStorage.getItem("auth-token")}`,
-                  },
-                  body: JSON.stringify({ productId, quantity }),
-                });
-                const data = await res.json();
-                if (res.ok) {
-                  setCartItems(data);
-                  showHide("success", "You have successfully added item to cart");
-                  console.log(user.firstName);
-                  console.log("added");
+    // const addToCart = async (productId, quantity, product) => {
+    //     if (isAuthenticated) {
+    //         try {
+    //             // Add a new item to the cart
+    //             const res = await fetch("https://bimscollection.onrender.com/api/addcart", {
+    //               method: "POST",
+    //               headers: {
+    //                 "Content-Type": "application/json",
+    //                 "auth-token": `${localStorage.getItem("auth-token")}`,
+    //               },
+    //               body: JSON.stringify({ productId, quantity }),
+    //             });
+    //             const data = await res.json();
+    //             if (res.ok) {
+    //               setCartItems(data);
+    //               showHide("success", "You have successfully added item to cart");
+    //               console.log(user.firstName);
+    //               console.log("added");
                   
                   
-                } else {
-                  showHide("error", "Product failed to added to cart");
-                }
-            } catch (error) {
-              console.log(error);
-              showHide("error", "An error occurred while adding the item to the cart");
-            }  
-        }else{
-            //if unauthenticated
-            const storedCart = JSON.parse(getItem("cart")) || { products:[] };
-            const itemIndex = storedCart.products?.findIndex(
-                (item)=> item.product._id === productId
-            );
-            if (itemIndex >= 0) {
-                storedCart.products[itemIndex].quantity += 1;
-                storedCart.products[itemIndex].amount = product.price * storedCart.products[itemIndex].quantity
-            } else { 
-                storedCart.products.push({
-                    product,
-                    quantity: 1,
-                    amount : product.price * 1
-                })
-                // console.log(product)
-                // console.log(user);
+    //             } else {
+    //               showHide("error", "Product failed to added to cart");
+    //             }
+    //         } catch (error) {
+    //           console.log(error);
+    //           showHide("error", "An error occurred while adding the item to the cart");
+    //         }  
+    //     }else{
+    //         //if unauthenticated
+    //         const storedCart = JSON.parse(getItem("cart")) || { products:[] };
+    //         const itemIndex = storedCart.products?.findIndex(
+    //             (item)=> item.product._id === productId
+    //         );
+    //         if (itemIndex >= 0) {
+    //             storedCart.products[itemIndex].quantity += 1;
+    //             storedCart.products[itemIndex].amount = product.price * storedCart.products[itemIndex].quantity
+    //         } else { 
+    //             storedCart.products.push({
+    //                 product,
+    //                 quantity: 1,
+    //                 amount : product.price * 1
+    //             })
+    //             // console.log(product)
+    //             // console.log(user);
                 
 
-            }
-            localStorage.setItem("cart", JSON.stringify(storedCart))
-            showHide("success", "product added to cart successfully")
-            setCartItems(storedCart)
+    //         }
+    //         localStorage.setItem("cart", JSON.stringify(storedCart))
+    //         showHide("success", "product added to cart successfully")
+    //         setCartItems(storedCart)
+    //     }
+    //   };
+    const addToCart = async (productId, quantity, product) => {
+        try {
+          if (isAuthenticated) {
+            await handleAuthenticatedCart(productId, quantity);
+          } else {
+            handleUnauthenticatedCart(productId, product);
+          }
+        } catch (error) {
+          console.error(error);
+          showHide("error", "An unexpected error occurred while adding the item to the cart");
         }
       };
+      
+      // Helper function to handle authenticated cart actions
+      const handleAuthenticatedCart = async (productId, quantity) => {
+        try {
+          const res = await fetch("https://bimscollection.onrender.com/api/addcart", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "auth-token": localStorage.getItem("auth-token"),
+            },
+            body: JSON.stringify({ productId, quantity }),
+          });
+      
+          const data = await res.json();
+      
+          if (res.ok) {
+            setCartItems(data);
+            showHide("success", "You have successfully added the item to the cart");
+            console.log("Item added to authenticated cart");
+          } else {
+            showHide("error", data.message || "Failed to add product to cart");
+          }
+        } catch (error) {
+          console.error("Error adding item to authenticated cart:", error);
+          throw new Error("Failed to handle authenticated cart action");
+        }
+      };
+      
+      // Helper function to handle unauthenticated cart actions
+      const handleUnauthenticatedCart = (productId, product) => {
+        const storedCart = JSON.parse(localStorage.getItem("cart")) || { products: [] };
+      
+        // Check if product already exists in the cart
+        const existingProductIndex = storedCart.products.findIndex(
+          (item) => item.product._id === productId
+        );
+      
+        if (existingProductIndex >= 0) {
+          // Update quantity and amount for existing product
+          storedCart.products[existingProductIndex].quantity += 1;
+          storedCart.products[existingProductIndex].amount =
+            product.price * storedCart.products[existingProductIndex].quantity;
+        } else {
+          // Add new product to the cart
+          storedCart.products.push({
+            product,
+            quantity: 1,
+            amount: product.price,
+          });
+        }
+      
+        // Save updated cart to localStorage and state
+        localStorage.setItem("cart", JSON.stringify(storedCart));
+        setCartItems(storedCart);
+      
+        showHide("success", "Product added to cart successfully");
+      };
+      
     
     //fetch cart
     const fetchCart = async () => {

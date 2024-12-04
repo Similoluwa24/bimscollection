@@ -34,9 +34,9 @@ const redirect = useNavigate()
       showHide("success", 'Logged Out!')
     }
   return (
-    <div className='bg-[blanchedalmond] w-fit h-svh lg:w-60 p-2 lg:p-4 '>
+    <div className='bg-[#F4F4F9] w-fit h-svh lg:w-60 p-2 lg:p-4 '>
       <div className="p-4 text-center title">
-         <h1 className='font-[aladin] text-[brown] text-[10px] md:text-lg lg:text-2xl'>ADMIN</h1>
+         <h1 className='font-[aladin] text-[#D97706] text-[10px] md:text-lg lg:text-2xl'>ADMIN</h1>
          <h1>Ojo Oluwapelumi</h1>
          <h1>{currentTime}</h1>
       </div>

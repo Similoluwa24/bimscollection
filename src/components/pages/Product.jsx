@@ -39,7 +39,7 @@ function Product() {
 
 
         <nav>
-        <ul className='space-x-24 bg-[brown] text-[blanchedalmond] mb-5  '>
+        <ul className='space-x-24 bg-[#D97706] text-[#F4F4F9] mb-5  '>
           <li onClick={prePage}>
             <a href="#prev">Prev</a>
           </li>

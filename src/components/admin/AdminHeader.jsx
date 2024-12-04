@@ -3,7 +3,7 @@ import React from 'react'
 function AdminHeader() {
   return (
     <div>
-      <header className='flex bg-[brown]  justify-between w-[500px] '>
+      <header className='flex bg-[#D97706]  justify-between w-[500px] '>
         <div className="logo">
           BIMSCOLLECTIONS
         </div>

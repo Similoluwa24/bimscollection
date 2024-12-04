@@ -30,7 +30,7 @@ useEffect(()=>{
           <p>we will send your order confirmation to </p>
           <p className='font-semibold'><span><i className="fa-regular fa-envelope"></i></span>  ojooluwapelumi@gmail.com</p>
         </div>
-        <hr   className='bg-[brown] '/>
+        <hr   className='bg-[#D97706] '/>
         <div className=" mx-4 my-3 delivery">
           <h1 className='my-3 capitalize text-center font-semibold text-2xl'>order details</h1>
           <h3 className='my-3 capitalize font-semibold text-lg'>contact details</h3>
@@ -44,7 +44,7 @@ useEffect(()=>{
           <p className='my-px capitalize'>order number: {order?.transaction_id} </p>
           <p className='my-px capitalize'>order total: <s>N</s>{calculateTotalAmount()}</p>
 
-          <Link to="/product"><button className='bg-[brown] p-3 rounded-md my-3 text-[blanchedalmond] capitalize  '>Continue shopping</button></Link>
+          <Link to="/product"><button className='bg-[#D97706] p-3 rounded-md my-3 text-[#F4F4F9] capitalize  '>Continue shopping</button></Link>
 
         </div>
       </div>

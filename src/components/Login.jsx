@@ -94,51 +94,122 @@ function Login() {
   };
 
   return (
-    <div className="containers">
-      <div className="rounded bg-[brown] flex flex-col justify-center max-w-3xl h-screen mx-auto my-12">
-        <div className="text-7xl mx-auto text-[blanchedalmond] mt-8">
-          <VscAccount />
-        </div>
-        <form onSubmit={loginHandler} className="text-[blanchedalmond] text-lora p-3 mx-auto w-3/4">
-          <div className="p-3">
-            <input
-              type="email"
-              id="email"
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter e-mail address"
-              required
-              className="w-full p-2 outline-none border-0 border-b bg-transparent placeholder:text-sm placeholder:text-[blanchedalmond]"
-            />
-          </div>
-          <div className="p-3">
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              onChange={validatePassword}
-              required
-              className="w-full p-2 outline-none border-0 border-b bg-transparent placeholder:text-sm placeholder:text-[blanchedalmond]"
-            />
-            {message && <p>{message}</p>}
-          </div>
-          <button
-            className="bg-[blanchedalmond] py-3 px-12 text-xl w-full rounded border-2 text-[brown] border-[brown] hover:text-blue-400 hover:bg-[brown] hover:border-[blanchedalmond]"
-            disabled={btnDisabled}
-            type="submit"
-          >
-            Login
-          </button>
-        </form>
-        <div className="flex gap-4 justify-around mt-8">
-          <Link to="/" className="text-[blanchedalmond] italic hover:text-blue-400 hover:underline">
-            Forgot Password?
-          </Link>
-          <Link to="/signup" className="text-[blanchedalmond] italic hover:text-blue-400 hover:underline">
-            New Here? <span>Sign Up</span>
-          </Link>
-        </div>
-      </div>
+    // <div className="containers">
+    //   <div className="rounded bg-[#D97706] flex flex-col justify-center max-w-3xl h-screen mx-auto my-12">
+    //     <div className="text-7xl mx-auto text-[#F4F4F9] mt-8">
+    //       <VscAccount />
+    //     </div>
+    //     <form onSubmit={loginHandler} className="text-[#F4F4F9] text-lora p-3 mx-auto w-3/4">
+    //       <div className="p-3">
+    //         <input
+    //           type="email"
+    //           id="email"
+    //           onChange={(e) => setEmail(e.target.value)}
+    //           placeholder="Enter e-mail address"
+    //           required
+    //           className="w-full p-2 outline-none border-0 border-b bg-transparent placeholder:text-sm placeholder:text-[#F4F4F9]"
+    //         />
+    //       </div>
+    //       <div className="p-3">
+    //         <input
+    //           type="password"
+    //           id="password"
+    //           placeholder="Password"
+    //           onChange={validatePassword}
+    //           required
+    //           className="w-full p-2 outline-none border-0 border-b bg-transparent placeholder:text-sm placeholder:text-[#F4F4F9]"
+    //         />
+    //         {message && <p>{message}</p>}
+    //       </div>
+    //       <button
+    //         className="bg-[#F4F4F9] py-3 px-12 text-xl w-full rounded border-2 text-[#D97706] border-[#D97706] hover:text-blue-400 hover:bg-[#D97706] hover:border-[#F4F4F9]"
+    //         disabled={btnDisabled}
+    //         type="submit"
+    //       >
+    //         Login
+    //       </button>
+    //     </form>
+    //     <div className="flex gap-4 justify-around mt-8">
+    //       <Link to="/" className="text-[#F4F4F9] italic hover:text-blue-400 hover:underline">
+    //         Forgot Password?
+    //       </Link>
+    //       <Link to="/signup" className="text-[#F4F4F9] italic hover:text-blue-400 hover:underline">
+    //         New Here? <span>Sign Up</span>
+    //       </Link>
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="min-h-screen flex items-center justify-center bg-[#F4F4F9]">
+  <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+    {/* Icon */}
+    <div className="text-center mb-6">
+      <h1 className="text-2xl font-bold text-[#D97706]">Welcome Back!</h1>
+      <p className="text-gray-600 text-sm">Please log in to your account</p>
     </div>
+
+    {/* Login Form */}
+    <form onSubmit={loginHandler} className="space-y-6">
+      {/* Email Input */}
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          Email Address
+        </label>
+        <input
+          type="email"
+          id="email"
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          required
+          className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#D97706] focus:border-[#D97706] text-gray-700 placeholder-gray-400"
+        />
+      </div>
+
+      {/* Password Input */}
+      <div>
+        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          onChange={validatePassword}
+          placeholder="Enter your password"
+          required
+          className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#D97706] focus:border-[#D97706] text-gray-700 placeholder-gray-400"
+        />
+        {message && <p className="mt-1 text-sm text-red-500">{message}</p>}
+      </div>
+
+      {/* Login Button */}
+      <button
+        type="submit"
+        disabled={btnDisabled}
+        className={`w-full py-3 rounded-lg text-white bg-[#D97706] hover:bg-[#D97706]/90 focus:outline-none focus:ring-2 focus:ring-[#D97706] ${
+          btnDisabled ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+      >
+        Login
+      </button>
+    </form>
+
+    {/* Additional Links */}
+    <div className="mt-6 flex justify-between text-sm text-gray-600">
+      <Link
+        to="/"
+        className="hover:text-[#D97706] hover:underline focus:outline-none focus:text-[#D97706]"
+      >
+        Forgot Password?
+      </Link>
+      <Link
+        to="/signup"
+        className="hover:text-[#D97706] hover:underline focus:outline-none focus:text-[#D97706]"
+      >
+        New Here? Sign Up
+      </Link>
+    </div>
+  </div>
+</div>
+
   );
 }
 

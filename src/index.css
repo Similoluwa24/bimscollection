@@ -18,8 +18,8 @@ body{
     font-style: normal
 }
 .header nav :hover{
-background-color: blanchedalmond;
-color: brown;
+background-color: #F4F4F9;
+color: #D97706;
 }
 .header nav Link{
     padding: .5rem;
@@ -153,12 +153,12 @@ padding: 1.5rem;
 
 .loader span:nth-child(1) {
   color: transparent;
-  -webkit-text-stroke: 0.3px brown;
+  -webkit-text-stroke: 0.3px #D97706;
 }
 
 .loader span:nth-child(2) {
-  color: brown;
-  -webkit-text-stroke: 1px brown;
+  color: #D97706;
+  -webkit-text-stroke: 1px #D97706;
   animation: uiverse723 3s ease-in-out infinite;
 }
 
@@ -179,7 +179,7 @@ padding: 1.5rem;
   /* max-height: 40rem; */
    max-width: max-content; 
   padding: .8em;
-  background:blanchedalmond;
+  background:#F4F4F9;
   position: relative;
   overflow: visible;
   /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.12); */
@@ -200,7 +200,7 @@ padding: 1.5rem;
  svg {
   width: 20px;
   height: 20px;
-  color: brown;
+  color: #D97706;
  }
  
  .card-footer {
@@ -251,11 +251,11 @@ padding: 1.5rem;
   padding: 0.2em 1em;
   font-size: 18px;
   border-radius: 0.5em;
-  background: brown;
+  background: #D97706;
   cursor: pointer;
-  border: 1px solid blanchedalmond;
+  border: 1px solid #F4F4F9;
   transition: all 0.3s;
-  /* box-shadow: 6px 6px 12px grey, -6px -6px 12px blanchedalmond; */
+  /* box-shadow: 6px 6px 12px grey, -6px -6px 12px #F4F4F9; */
 }
 
 .botton:hover {
@@ -445,7 +445,7 @@ nav ul{
   text-align: center;
 }
 hr{
-  color: brown;
+  color: #D97706;
   
 }
 

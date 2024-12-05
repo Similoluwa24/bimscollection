@@ -73,7 +73,7 @@ function Cart() {
         <div className="flex justify-between items-center text-lg">
           <span>Subtotal:</span>
           <span>
-            <s>N</s>{calculateSubTotal()}
+            <s>N</s>{calculateSubTotal() || 0}
           </span>
         </div>
         <div className="flex justify-between items-center text-lg mt-2">

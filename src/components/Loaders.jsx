@@ -2,15 +2,13 @@ import React from 'react'
 
 function Loaders() {
   return (
-    <div> 
-      <div className="load">
-
-<div className="loader">
-    <span>bimscollections</span>
-    <span>bimscollections</span>
-</div>
-      </div>
+    <div className="load flex justify-center items-center ">
+    <div className="loader text-sm md:text-6xl font-bold text-[#D97706]">
+      <span className="block animate-pulse">bimscollections</span>
+      <span className="block animate-pulse">bimscollections</span>
     </div>
+  </div>
+  
   )
 }
 

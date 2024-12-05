@@ -22,7 +22,7 @@ function Banner() {
     </div>
 
     {/* Text and Call-to-Action */}
-    <div className="bannerText bg-[#D97706]/90 px-6 py-10 rounded-lg shadow-xl">
+    <div className=" bg-[#D97706]/90 px-6 py-10 rounded-lg shadow-xl">
       <h1 className="text-5xl md:text-7xl font-bold text-[#F4F4F9] mb-4">
         BimbsCollections
       </h1>
